@@ -29,7 +29,7 @@ namespace WorkerConecMongo
                 List<string> NombrebaseDatos = client.ListDatabaseNames().ToList();
                 Console.WriteLine("entra a mongo 23");
                 var database = client.GetDatabase("APIAlmacenes");
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(300000, stoppingToken);
             }
         }
     }
