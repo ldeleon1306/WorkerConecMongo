@@ -24,7 +24,7 @@ namespace WorkerConecMongo
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var client = new MongoClient("mongodb://10.20.2.48:27017");
+                var client = new MongoClient("mongodb://10.20.2.47:27017");
                 Console.WriteLine("conecto a mongo 21");
                 Console.WriteLine("entra a mongo 22");
                 List<string> NombrebaseDatos = client.ListDatabaseNames().ToList();
