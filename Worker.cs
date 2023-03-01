@@ -67,7 +67,11 @@ namespace WorkerConecMongo
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine("dentro de casa mail");
+                    //Console.WriteLine(_mailFrom);
+                    //Console.WriteLine(_mailTo);
+                    Console.WriteLine(ex.Message);
+                    //_logger.LogError(ex, "Se produjo una excepción en el metodo SendEmail: ", ex.Message);
                     throw ex;
                 }
                
