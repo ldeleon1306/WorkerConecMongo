@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,7 +30,40 @@ namespace WorkerConecMongo
                 List<string> NombrebaseDatos = client.ListDatabaseNames().ToList();
                 Console.WriteLine("entra a mongo 23");
                 var database = client.GetDatabase("APIAlmacenes");
-                await Task.Delay(300000, stoppingToken);
+
+                Console.WriteLine("entrando al mail");
+                MailMessage mail = new MailMessage();
+                //Console.WriteLine(_mailFrom.ToString());
+                //Console.WriteLine(_mailTo);
+                mail.From = new MailAddress("appdesabrdcsrv@andreani.com");
+                mail.To.Add("ldeleon@andreani.com");
+                //var multiple = _mailTo.Split(';');
+                //foreach (var to in multiple)
+                //{
+                //    if (to != string.Empty)
+                //        mail.To.Add(to);
+                //}              
+                System.Net.Mail.Attachment attachment;
+                attachment = new System.Net.Mail.Attachment("output.txt");
+                mail.Attachments.Add(attachment);
+                //if (!String.IsNullOrEmpty(txterror))
+                //{
+                //  attachment = new System.Net.Mail.Attachment(txterror);
+                //  mail.Attachments.Add(attachment);
+                //}
+                string cliente = "prueba";
+                string subject = string.Format($"Prueba {cliente} Mail");
+                string bodyMsg = string.Format($"Se procesó un mongo {cliente}");
+                mail.Subject = subject;
+                mail.Body = bodyMsg;
+                mail.IsBodyHtml = true;
+                Console.WriteLine(bodyMsg);
+                SmtpClient smtp = new SmtpClient("10.20.2.41");
+                smtp.EnableSsl = false;
+                smtp.Port = 25;
+                smtp.UseDefaultCredentials = true;
+
+                await Task.Delay(1000, stoppingToken);
             }
         }
     }
