@@ -30,7 +30,7 @@ namespace WorkerConecMongo
                 List<string> NombrebaseDatos = client.ListDatabaseNames().ToList();
                 Console.WriteLine("entra a mongo 23");
                 var database = client.GetDatabase("APIAlmacenes");
-
+                Console.WriteLine(database);
                 Console.WriteLine("entrando al mail");
                 MailMessage mail = new MailMessage();
                 //Console.WriteLine(_mailFrom.ToString());
@@ -44,8 +44,8 @@ namespace WorkerConecMongo
                 //        mail.To.Add(to);
                 //}              
                 System.Net.Mail.Attachment attachment;
-                attachment = new System.Net.Mail.Attachment("output.txt");
-                mail.Attachments.Add(attachment);
+                //attachment = new System.Net.Mail.Attachment("output.txt");
+                //mail.Attachments.Add(attachment);
                 //if (!String.IsNullOrEmpty(txterror))
                 //{
                 //  attachment = new System.Net.Mail.Attachment(txterror);
