@@ -94,7 +94,7 @@ namespace WorkerConecMongo
                 }
                
 
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(60000, stoppingToken);
             }
         }
     }
