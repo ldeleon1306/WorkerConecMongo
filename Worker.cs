@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -35,7 +36,17 @@ namespace WorkerConecMongo
                 Wap_IngresosPedidosContext db = new Wap_IngresosPedidosContext();
                 WAP_INGRESOPEDIDOS wp = new WAP_INGRESOPEDIDOS();
                 var idlist = new int[] { 2, 3 };
-                Console.WriteLine("antes  from p in db.WAP_INGRESOPEDIDOS");
+                Console.WriteLine("antes  raw sql");
+
+                var students = db.WAP_INGRESOPEDIDOS
+                  .FromSqlRaw("SELECT * FROM [InterfacesWHS ].[dbo].[WAP_INGRESOPEDIDOS]")
+    .Take(100)
+    .ToList();
+
+                Console.WriteLine("despues  raw sql");
+                Console.WriteLine(students.Count());
+
+
                 var estados = from p in db.WAP_INGRESOPEDIDOS
                               where p.IdTransacción == "660" && idlist.Contains(p.Estado)
                               select new WAP_INGRESOPEDIDOS()
@@ -48,8 +59,15 @@ namespace WorkerConecMongo
                                   OrdenExterna1 = p.OrdenExterna1
                               };
 
-                Console.WriteLine("entrando al mail");
-                int a = estados.Count(); Console.WriteLine(a);
+                Console.WriteLine("contar estados");
+                int a = 0;
+                foreach (var item in estados)
+                {
+                    a++;
+                }
+                    Console.WriteLine("estados");
+                    Console.WriteLine(a);
+
                 try
                 {
                     MailMessage mail = new MailMessage();
