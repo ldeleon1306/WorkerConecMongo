@@ -25,7 +25,7 @@ namespace WorkerConecMongo
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var client = new MongoClient("mongodb://10.20.2.46:27017");
+                var client = new MongoClient("mongodb://10.20.7.44:27017");
                 Console.WriteLine("conecto a mongo 21");
                 Console.WriteLine("entra a mongo 22");
                 List<string> NombrebaseDatos = client.ListDatabaseNames().ToList();
@@ -47,26 +47,26 @@ namespace WorkerConecMongo
                 Console.WriteLine(students.Count());
 
 
-                var estados = from p in db.WAP_INGRESOPEDIDOS
-                              where p.IdTransacción == "660" && idlist.Contains(p.Estado)
-                              select new WAP_INGRESOPEDIDOS()
-                              {
-                                  IdTransacción = p.IdTransacción,
-                                  Estado = p.Estado,
-                                  Propietario = p.Propietario,
-                                  RazonFalla = p.RazonFalla,
-                                  Almacen = p.Almacen,
-                                  OrdenExterna1 = p.OrdenExterna1
-                              };
+                //var estados = from p in db.WAP_INGRESOPEDIDOS
+                //              where p.IdTransacción == "660" && idlist.Contains(p.Estado)
+                //              select new WAP_INGRESOPEDIDOS()
+                //              {
+                //                  IdTransacción = p.IdTransacción,
+                //                  Estado = p.Estado,
+                //                  Propietario = p.Propietario,
+                //                  RazonFalla = p.RazonFalla,
+                //                  Almacen = p.Almacen,
+                //                  OrdenExterna1 = p.OrdenExterna1
+                //              };
 
-                Console.WriteLine("contar estados");
-                int a = 0;
-                foreach (var item in estados)
-                {
-                    a++;
-                }
-                    Console.WriteLine("estados");
-                    Console.WriteLine(a);
+                //Console.WriteLine("contar estados");
+                //int a = 0;
+                //foreach (var item in estados)
+                //{
+                //    a++;
+                //}
+                //    Console.WriteLine("estados");
+                //    Console.WriteLine(a);
 
                 try
                 {
