@@ -24,20 +24,38 @@ namespace WorkerConecMongo
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var client = new MongoClient("mongodb://10.20.2.47:27017");
+                var client = new MongoClient("mongodb://10.20.2.46:27017");
                 Console.WriteLine("conecto a mongo 21");
                 Console.WriteLine("entra a mongo 22");
                 List<string> NombrebaseDatos = client.ListDatabaseNames().ToList();
                 Console.WriteLine("entra a mongo 23");
                 var database = client.GetDatabase("APIAlmacenes");
                 Console.WriteLine(database);
+
+                Wap_IngresosPedidosContext db = new Wap_IngresosPedidosContext();
+                WAP_INGRESOPEDIDOS wp = new WAP_INGRESOPEDIDOS();
+                var idlist = new int[] { 2, 3 };
+                Console.WriteLine("antes  from p in db.WAP_INGRESOPEDIDOS");
+                var estados = from p in db.WAP_INGRESOPEDIDOS
+                              where p.IdTransacción == "660" && idlist.Contains(p.Estado)
+                              select new WAP_INGRESOPEDIDOS()
+                              {
+                                  IdTransacción = p.IdTransacción,
+                                  Estado = p.Estado,
+                                  Propietario = p.Propietario,
+                                  RazonFalla = p.RazonFalla,
+                                  Almacen = p.Almacen,
+                                  OrdenExterna1 = p.OrdenExterna1
+                              };
+
                 Console.WriteLine("entrando al mail");
+                int a = estados.Count(); Console.WriteLine(a);
                 try
                 {
                     MailMessage mail = new MailMessage();
                     //Console.WriteLine(_mailFrom.ToString());
                     //Console.WriteLine(_mailTo);
-                    mail.From = new MailAddress("appdesabrdcsrv@andreani.com");
+                    mail.From = new MailAddress("apptestbrdcsrv@andreani.com");
                     mail.To.Add("ldeleon@andreani.com");
                     //var multiple = _mailTo.Split(';');
                     //foreach (var to in multiple)
@@ -55,12 +73,12 @@ namespace WorkerConecMongo
                     //}
                     string cliente = "prueba";
                     string subject = string.Format($"Prueba {cliente} Mail");
-                    string bodyMsg = string.Format($"Se procesÃ³ un mongo {cliente}");
+                    string bodyMsg = string.Format($"Se procesó un mongo {cliente}");
                     mail.Subject = subject;
                     mail.Body = bodyMsg;
                     mail.IsBodyHtml = true;
                     Console.WriteLine(bodyMsg);
-                    SmtpClient smtp = new SmtpClient("10.20.2.41");
+                    SmtpClient smtp = new SmtpClient("10.20.7.16");
                     smtp.EnableSsl = false;
                     smtp.Port = 25;
                     smtp.UseDefaultCredentials = true;
@@ -71,7 +89,7 @@ namespace WorkerConecMongo
                     //Console.WriteLine(_mailFrom);
                     //Console.WriteLine(_mailTo);
                     Console.WriteLine(ex.Message);
-                    //_logger.LogError(ex, "Se produjo una excepciÃ³n en el metodo SendEmail: ", ex.Message);
+                    //_logger.LogError(ex, "Se produjo una excepción en el metodo SendEmail: ", ex.Message);
                     throw ex;
                 }
                
