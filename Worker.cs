@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -26,11 +27,43 @@ namespace WorkerConecMongo
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                string WpAlmacen= "wmwhse4", WpOrdenExterna1= "7CDKkFgo4bZjGTuK";
 
-                //Context.Wap_IngresosPedidosContexts s = new Context.Wap_IngresosPedidosContexts();
+                string sql = "select top 10 EXTERNORDERKEY,WHSEID,STATUS FROM [LPNFD].[" + WpAlmacen + "].[ORDERS]";
+                int count = 0;
+                using (SqlConnection connection = new SqlConnection("Data Source=DBSCEFARMATEST.andreani.com.ar;Initial Catalog=LPNFD;User ID=User_ConfirmacionOperacionesWMS;Password=PbnWYh5xKvAVJjSPF3ZL;Integrated Security=False"))
+                //using (SqlConnection connection = new SqlConnection(@"Data Source=DBSCEFARMATEST;Initial catalog=LPNFD;Integrated Security=true"))
+                {
+                    connection.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    Console.WriteLine("---------------SCE--------------------");
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            count++;
+                            Console.WriteLine(String.Format("EXTERNORDERKEY: {0},WHSEID: {1},STATUS: {2}",
+                            reader["EXTERNORDERKEY"], reader["WHSEID"], reader["STATUS"]));// etc
+                        }
+                    }
+                    finally
+                    {
+                        // Always call Close when done reading.
+                        reader.Close();
+                    }
+                }
+
+                //Context.InterfacesWHSContext s = new Context.InterfacesWHSContext();
                 //foreach (var item in s.WapIngresopedidos.Take(10).ToList())
                 //{
                 //    Console.WriteLine(item.OrdenExterna1);
+                //}
+                //Context.DESA_INTEGRAContext s = new Context.DESA_INTEGRAContext();
+                //foreach (var item in s.Address.Take(10).ToList())
+                //{
+                //    Console.WriteLine(item.Address1);
                 //}
 
 
@@ -58,18 +91,18 @@ namespace WorkerConecMongo
                 //                Console.WriteLine(docs);
                 //            }
 
-                Wap_IngresosPedidosContext db = new Wap_IngresosPedidosContext();
-                WAP_INGRESOPEDIDOS wp = new WAP_INGRESOPEDIDOS();
-                var idlist = new int[] { 2, 3 };
-                Console.WriteLine("antes  raw sql");
+                //            Wap_IngresosPedidosContext db = new Wap_IngresosPedidosContext();
+                //            WAP_INGRESOPEDIDOS wp = new WAP_INGRESOPEDIDOS();
+                //            var idlist = new int[] { 2, 3 };
+                //            Console.WriteLine("antes  raw sql");
 
-                var students = db.WAP_INGRESOPEDIDOS
-                  .FromSqlRaw("SELECT * FROM [InterfacesWHS ].[dbo].[WAP_INGRESOPEDIDOS]")
-    .Take(10)
-    .ToList();
+                //            var students = db.WAP_INGRESOPEDIDOS
+                //              .FromSqlRaw("SELECT * FROM [InterfacesWHS ].[dbo].[WAP_INGRESOPEDIDOS]")
+                //.Take(10)
+                //.ToList();
 
-                Console.WriteLine("despues  raw sql");
-                Console.WriteLine(students.Count());
+                //            Console.WriteLine("despues  raw sql");
+                //            Console.WriteLine(students.Count());
 
 
                 //var estados = from p in db.WAP_INGRESOPEDIDOS
