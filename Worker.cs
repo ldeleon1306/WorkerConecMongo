@@ -154,7 +154,7 @@ namespace WorkerConecMongo
                     mail.Body = bodyMsg;
                     mail.IsBodyHtml = true;
                     Console.WriteLine(bodyMsg);
-                    SmtpClient smtp = new SmtpClient("10.20.7.16");
+                    SmtpClient smtp = new SmtpClient("10.20.2.41");
                     smtp.EnableSsl = false;
                     smtp.Port = 25;
                     smtp.UseDefaultCredentials = true;
