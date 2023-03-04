@@ -31,7 +31,7 @@ namespace WorkerConecMongo
 
                 string sql = "select top 10 EXTERNORDERKEY,WHSEID,STATUS FROM [LPNFD].[" + WpAlmacen + "].[ORDERS]";
                 int count = 0;
-                using (SqlConnection connection = new SqlConnection("Data Source=DBSCEFARMATEST.andreani.com.ar;Initial Catalog=LPNFD;User ID=User_ConfirmacionOperacionesWMS;Password=PbnWYh5xKvAVJjSPF3ZL;Integrated Security=False"))
+                using (SqlConnection connection = new SqlConnection("Data Source=DBSCEECOMPROD.andreani.com.ar;Initial Catalog=LPNFD;User ID=User_ConfirmacionOperacionesWMS;Password=rn5zsLpRWJrRNRR0v6Fx;Integrated Security=False"))
                 //using (SqlConnection connection = new SqlConnection(@"Data Source=DBSCEFARMATEST;Initial catalog=LPNFD;Integrated Security=true"))
                 {
                     connection.Open();
