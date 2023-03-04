@@ -106,10 +106,10 @@ namespace WorkerConecMongo
 
 
                 //var estados = from p in db.WAP_INGRESOPEDIDOS
-                //              where p.IdTransacción == "660" && idlist.Contains(p.Estado)
+                //              where p.IdTransacciÃ³n == "660" && idlist.Contains(p.Estado)
                 //              select new WAP_INGRESOPEDIDOS()
                 //              {
-                //                  IdTransacción = p.IdTransacción,
+                //                  IdTransacciÃ³n = p.IdTransacciÃ³n,
                 //                  Estado = p.Estado,
                 //                  Propietario = p.Propietario,
                 //                  RazonFalla = p.RazonFalla,
@@ -131,7 +131,7 @@ namespace WorkerConecMongo
                     MailMessage mail = new MailMessage();
                     //Console.WriteLine(_mailFrom.ToString());
                     //Console.WriteLine(_mailTo);
-                    mail.From = new MailAddress("apptestbrdcsrv@andreani.com");
+                    mail.From = new MailAddress("ldeleon@andreani.com");
                     mail.To.Add("ldeleon@andreani.com");
                     //var multiple = _mailTo.Split(';');
                     //foreach (var to in multiple)
@@ -149,7 +149,7 @@ namespace WorkerConecMongo
                     //}
                     string cliente = "prueba";
                     string subject = string.Format($"Prueba {cliente} Mail");
-                    string bodyMsg = string.Format($"Se procesó un mongo {cliente}");
+                    string bodyMsg = string.Format($"Se procesÃ³ un mongo {cliente}");
                     mail.Subject = subject;
                     mail.Body = bodyMsg;
                     mail.IsBodyHtml = true;
@@ -168,7 +168,7 @@ namespace WorkerConecMongo
                     //Console.WriteLine(_mailFrom);
                     //Console.WriteLine(_mailTo);
                     Console.WriteLine(ex.Message);
-                    //_logger.LogError(ex, "Se produjo una excepción en el metodo SendEmail: ", ex.Message);
+                    //_logger.LogError(ex, "Se produjo una excepciÃ³n en el metodo SendEmail: ", ex.Message);
                     throw ex;
                 }
                
